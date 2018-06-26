@@ -17,8 +17,8 @@ namespace huecli
             Console.WriteLine("Scan for UPnP-enabled hubs:     huecli scan-hubs");
             Console.WriteLine("Add a hub:                      huecli add-hub");
             Console.WriteLine("Remove a hub:                   huecli remove-hub");
-            Console.WriteLine("Get the active hub(s):          huecli get-hub | huecli get-hubs");
-            Console.WriteLine("Set the active hub:             huecli set-hub");
+            Console.WriteLine("Get available hubs:             huecli get-hubs");
+            Console.WriteLine("Get avail. lighting for hub:    huecli get-lighting hubaliashere");
         }
 
         public bool ShouldShowHelp()
@@ -45,18 +45,6 @@ namespace huecli
             }
         }
 
-        public bool SetHubCheckEnoughArguments()
-        {
-            if (this.arguments.Length == 3)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public bool RemoveHubCheckEnoughArguments()
         {
             if (this.arguments.Length == 3)
@@ -72,6 +60,18 @@ namespace huecli
         public bool AddHubCheckEnoughArguments()
         {
             if (this.arguments.Length == 4)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool GetLightingCheckEnoughArguments()
+        {
+            if (this.arguments.Length == 3)
             {
                 return true;
             }

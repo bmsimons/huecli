@@ -41,23 +41,10 @@ namespace huecli
                     }
 
                     break;
-                case "get-hub":
-                    Console.WriteLine("Your current hub is not yet set.");
-                    break;
                 case "get-hubs":
                     foreach (var hub in settings.GetHubs())
                     {
                         Console.WriteLine("Hub "+hub["alias"]+" at "+hub["localipaddress"]);
-                    }
-                    break;
-                case "set-hub":
-                    if (argParser.SetHubCheckEnoughArguments())
-                    {
-                        activeHueBridge = new HueBridge(argParser.arguments[2], argParser.arguments[3]);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Incorrect syntax, use huecli set-hub MainHub 10.0.1.30");
                     }
                     break;
                 case "remove-hub":
@@ -88,6 +75,15 @@ namespace huecli
                         Console.WriteLine("Invalid syntax, use huecli add-hub hubaliashere hubipaddresshere");
                     }
                     break;
+                case "get-lighting":
+                    if (argParser.GetLightingCheckEnoughArguments())
+                    {
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid syntax, use huecli get-lighting hubaliashere")
+                    }
                 default:
                     argParser.ShowHelp();
                     break;
