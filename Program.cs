@@ -78,12 +78,47 @@ namespace huecli
                 case "get-lighting":
                     if (argParser.GetLightingCheckEnoughArguments())
                     {
-                        
+                        HueBridge hueBridge = new HueBridge(argParser.arguments[2], settings.GetIPAddress(argParser.arguments[2]), settings.GetUsername(argParser.arguments[2]));
+                        hueBridge.GetBridgeLighting();
                     }
                     else
                     {
-                        Console.WriteLine("Invalid syntax, use huecli get-lighting hubaliashere")
+                        Console.WriteLine("Invalid syntax, use huecli get-lighting hubaliashere");
                     }
+                    break;
+                case "turn-on":
+                    if (argParser.TurnOnOffCheckEnoughArguments())
+                    {
+                        HueBridge hueBridge = new HueBridge(argParser.arguments[2], settings.GetIPAddress(argParser.arguments[2]), settings.GetUsername(argParser.arguments[2]));
+                        hueBridge.TurnOnLighting(argParser.arguments[3]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("arg check failed");
+                    }
+                    break;
+                case "turn-off":
+                    if (argParser.TurnOnOffCheckEnoughArguments())
+                    {
+                        HueBridge hueBridge = new HueBridge(argParser.arguments[2], settings.GetIPAddress(argParser.arguments[2]), settings.GetUsername(argParser.arguments[2]));
+                        hueBridge.TurnOffLighting(argParser.arguments[3]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("arg check failed");
+                    }
+                    break;
+                case "set-brightness":
+                    if (argParser.SetBrightnessCheckEnoughArguments())
+                    {
+                        HueBridge hueBridge = new HueBridge(argParser.arguments[2], settings.GetIPAddress(argParser.arguments[2]), settings.GetUsername(argParser.arguments[2]));
+                        hueBridge.SetLightingBrightness(argParser.arguments[3], argParser.arguments[4]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("arg check failed");
+                    }
+                    break;
                 default:
                     argParser.ShowHelp();
                     break;

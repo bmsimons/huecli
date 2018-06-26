@@ -81,6 +81,30 @@ namespace huecli
             }
         }
 
+        public bool TurnOnOffCheckEnoughArguments()
+        {
+            if (this.arguments.Length == 4)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool SetBrightnessCheckEnoughArguments()
+        {
+            if (this.arguments.Length == 5)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public ArgumentParser()
         {
             arguments = Environment.GetCommandLineArgs();
