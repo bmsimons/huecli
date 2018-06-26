@@ -47,27 +47,6 @@ namespace huecli
             return hueBridges;
         }
 
-        public bool DoesBridgeLinkExist(String alias, String localipaddress)
-        {
-            HttpClient apiClient = new HttpClient();
-            HttpResponseMessage responseMessage = apiClient.GetAsync("http://"+localipaddress+"/api/"+alias).Result;
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                if (responseMessage.Content.ReadAsStringAsync().Result.Contains("[{\"error\":"))
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public string CreateBridgeLink(String alias, String localipaddress)
         {
             HttpClient apiClient = new HttpClient();
@@ -86,6 +65,20 @@ namespace huecli
                     Console.WriteLine("Please press the link button on your Hue bridge..");
                 }
                 System.Threading.Thread.Sleep(5000);
+            }
+        }
+
+        public bool RemoveBridgeLink(String localipaddress, String username)
+        {
+            HttpClient apiClient = new HttpClient();
+            HttpResponseMessage responseMessage = apiClient.DeleteAsync("http://"+localipaddress+"/api/"+username+"/config/whitelist/"+username).Result;
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

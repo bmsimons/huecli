@@ -108,6 +108,30 @@ namespace huecli
             SettingsDictionary.hubs.Add(hub);
         }
 
+        public string GetUsername(String hubAlias)
+        {
+            for (int i = 0; i < SettingsDictionary.hubs.Count; i++)
+            {
+                if (hubAlias == SettingsDictionary.hubs[i]["alias"])
+                {
+                    return SettingsDictionary.hubs[i]["username"];
+                }
+            }
+            return "";
+        }
+
+        public string GetIPAddress(String hubAlias)
+        {
+            for (int i = 0; i < SettingsDictionary.hubs.Count; i++)
+            {
+                if (hubAlias == SettingsDictionary.hubs[i]["alias"])
+                {
+                    return SettingsDictionary.hubs[i]["localipaddress"];
+                }
+            }
+            return "";
+        }
+
         public void RemoveHub(String hubAlias)
         {
             for (int i = 0; i < SettingsDictionary.hubs.Count; i++)
@@ -115,6 +139,7 @@ namespace huecli
                 if (hubAlias == SettingsDictionary.hubs[i]["alias"])
                 {
                     SettingsDictionary.hubs.RemoveAt(i);
+                    break;
                 }
             }
         }

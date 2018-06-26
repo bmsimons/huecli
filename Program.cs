@@ -20,7 +20,7 @@ namespace huecli
             HueBridgeDiscovery hueBridgeDiscovery = new HueBridgeDiscovery();
 
             string mainAction = argParser.GetMainAction();
-            Console.WriteLine(mainAction);
+            // Console.WriteLine(mainAction);
 
             switch (mainAction)
             {
@@ -63,6 +63,7 @@ namespace huecli
                 case "remove-hub":
                     if (argParser.RemoveHubCheckEnoughArguments())
                     {
+                        hueBridgeDiscovery.RemoveBridgeLink(settings.GetIPAddress(argParser.arguments[2]), settings.GetUsername(argParser.arguments[2]));
                         settings.RemoveHub(argParser.arguments[2]);
                     }
                     else
@@ -77,15 +78,8 @@ namespace huecli
                         hubToAdd.Add("alias", argParser.arguments[2]);
                         hubToAdd.Add("localipaddress", argParser.arguments[3]);
 
-                        if (hueBridgeDiscovery.DoesBridgeLinkExist(hubToAdd["alias"], hubToAdd["localipaddress"]))
-                        {
-                            Console.WriteLine("This hub has been registered previously!");
-                        }
-                        else
-                        {
-                            string bridgeUsername = hueBridgeDiscovery.CreateBridgeLink(hubToAdd["alias"], hubToAdd["localipaddress"]);
-                            hubToAdd.Add("username", bridgeUsername);
-                        }
+                        string bridgeUsername = hueBridgeDiscovery.CreateBridgeLink(hubToAdd["alias"], hubToAdd["localipaddress"]);
+                        hubToAdd.Add("username", bridgeUsername);
 
                         settings.AddHub(hubToAdd);
                     }
