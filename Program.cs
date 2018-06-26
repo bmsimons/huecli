@@ -17,6 +17,8 @@ namespace huecli
 
             argParser = new ArgumentParser();
 
+            HueBridgeDiscovery hueBridgeDiscovery = new HueBridgeDiscovery();
+
             string mainAction = argParser.GetMainAction();
             Console.WriteLine(mainAction);
 
@@ -25,7 +27,7 @@ namespace huecli
                 case "scan-hubs":
                     Console.WriteLine("Scanning for hubs...");
 
-                    List<HueBridgeObject> hueBridges = new HueBridgeDiscovery().GetBridges();
+                    List<HueBridgeObject> hueBridges = hueBridgeDiscovery.GetBridges();
                     if (hueBridges.Count != 0)
                     {
                         foreach (HueBridgeObject hueBridge in hueBridges)
@@ -74,6 +76,16 @@ namespace huecli
                         Dictionary<string, string> hubToAdd = new Dictionary<string, string>();
                         hubToAdd.Add("alias", argParser.arguments[2]);
                         hubToAdd.Add("localipaddress", argParser.arguments[3]);
+
+                        if (hueBridgeDiscovery.DoesBridgeLinkExist(hubToAdd["alias"], hubToAdd["localipaddress"]))
+                        {
+                            Console.WriteLine("This hub has been registered previously!");
+                        }
+                        else
+                        {
+                            string bridgeUsername = hueBridgeDiscovery.CreateBridgeLink(hubToAdd["alias"], hubToAdd["localipaddress"]);
+                            hubToAdd.Add("username", bridgeUsername);
+                        }
 
                         settings.AddHub(hubToAdd);
                     }

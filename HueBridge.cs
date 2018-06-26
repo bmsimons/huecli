@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
@@ -12,6 +13,18 @@ namespace huecli
 
         [JsonProperty("internalipaddress")]
         public string internalipaddress { get; set; }
+    }
+
+    public class HueBridgeLinkSuccessUsername
+    {
+        [JsonProperty("username")]
+        public string username { get; set; }
+    }
+
+    public class HueBridgeLinkSuccess
+    {
+        [JsonProperty("success")]
+        public HueBridgeLinkSuccessUsername success { get; set; }
     }
 
     class HueBridgeDiscovery
@@ -32,6 +45,48 @@ namespace huecli
             }
 
             return hueBridges;
+        }
+
+        public bool DoesBridgeLinkExist(String alias, String localipaddress)
+        {
+            HttpClient apiClient = new HttpClient();
+            HttpResponseMessage responseMessage = apiClient.GetAsync("http://"+localipaddress+"/api/"+alias).Result;
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                if (responseMessage.Content.ReadAsStringAsync().Result.Contains("[{\"error\":"))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public string CreateBridgeLink(String alias, String localipaddress)
+        {
+            HttpClient apiClient = new HttpClient();
+            StringContent content = new StringContent("{\"devicetype\": \"huecli#"+alias+"\"}", Encoding.UTF8, "application/json");
+            while (true)
+            {
+                HttpResponseMessage responseMessage = apiClient.PostAsync("http://"+localipaddress+"/api", content).Result;
+                String returnedMessage = responseMessage.Content.ReadAsStringAsync().Result;
+                if (!returnedMessage.Contains("\"description\":\"link button not pressed\"}}]"))
+                {
+                    // Console.WriteLine(returnedMessage);
+                    return JsonConvert.DeserializeObject<HueBridgeLinkSuccess[]>(returnedMessage)[0].success.username;
+                }
+                else
+                {
+                    Console.WriteLine("Please press the link button on your Hue bridge..");
+                }
+                System.Threading.Thread.Sleep(5000);
+            }
         }
     }
 
