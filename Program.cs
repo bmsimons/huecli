@@ -94,7 +94,7 @@ namespace huecli
                     }
                     else
                     {
-                        Console.WriteLine("arg check failed");
+                        Console.WriteLine("Invalid syntax, use huecli turn-on hubaliashere lightidhere");
                     }
                     break;
                 case "turn-off":
@@ -105,7 +105,7 @@ namespace huecli
                     }
                     else
                     {
-                        Console.WriteLine("arg check failed");
+                        Console.WriteLine("Invalid syntax, use huecli turn-off hubaliashere lightidhere");
                     }
                     break;
                 case "set-brightness":
@@ -116,7 +116,7 @@ namespace huecli
                     }
                     else
                     {
-                        Console.WriteLine("arg check failed");
+                        Console.WriteLine("Invalid syntax, use huecli set-brightness hubaliashere lightidhere 1-254");
                     }
                     break;
                 default:

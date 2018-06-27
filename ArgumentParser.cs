@@ -19,6 +19,10 @@ namespace huecli
             Console.WriteLine("Remove a hub:                   huecli remove-hub");
             Console.WriteLine("Get available hubs:             huecli get-hubs");
             Console.WriteLine("Get avail. lighting for hub:    huecli get-lighting hubaliashere");
+            Console.WriteLine("");
+            Console.WriteLine("Turn light on:                  huecli turn-on hubaliashere lightidhere");
+            Console.WriteLine("Turn light off:                 huecli turn-off hubaliashere lightidhere");
+            Console.WriteLine("Set light brightness:           huecli set-brightness hubaliashere lightidhere 1-254");
         }
 
         public bool ShouldShowHelp()
