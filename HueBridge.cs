@@ -147,5 +147,12 @@ namespace huecli
             StringContent content = new StringContent("{\"bri\": "+brightness+"}", Encoding.UTF8, "application/json");
             HttpResponseMessage responseMessage = apiClient.PutAsync("http://"+this.HueBridgeAddress+"/api/"+this.HueBridgeUsername+"/lights/"+lightID+"/state", content).Result;
         }
+
+        public void SetLightingTemperature(String lightID, String temperature)
+        {
+            HttpClient apiClient = new HttpClient();
+            StringContent content = new StringContent("{\"ct\": "+temperature+"}", Encoding.UTF8, "application/json");
+            HttpResponseMessage responseMessage = apiClient.PutAsync("http://"+this.HueBridgeAddress+"/api/"+this.HueBridgeUsername+"/lights/"+lightID+"/state", content).Result;
+        }
     }
 }

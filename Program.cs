@@ -119,6 +119,17 @@ namespace huecli
                         Console.WriteLine("Invalid syntax, use huecli set-brightness hubaliashere lightidhere 1-254");
                     }
                     break;
+                case "set-temperature":
+                    if (argParser.SetTemperatureCheckEnoughArguments())
+                    {
+                        HueBridge hueBridge = new HueBridge(argParser.arguments[2], settings.GetIPAddress(argParser.arguments[2]), settings.GetUsername(argParser.arguments[2]));
+                        hueBridge.SetLightingTemperature(argParser.arguments[3], argParser.arguments[4]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid syntax, use huecli set-temperature hubalias lightid 154-500");
+                    }
+                    break;
                 default:
                     argParser.ShowHelp();
                     break;

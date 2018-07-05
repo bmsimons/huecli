@@ -18,11 +18,12 @@ namespace huecli
             Console.WriteLine("Add a hub:                      huecli add-hub");
             Console.WriteLine("Remove a hub:                   huecli remove-hub");
             Console.WriteLine("Get available hubs:             huecli get-hubs");
-            Console.WriteLine("Get avail. lighting for hub:    huecli get-lighting hubaliashere");
+            Console.WriteLine("Get avail. lighting for hub:    huecli get-lighting hubalias");
             Console.WriteLine("");
-            Console.WriteLine("Turn light on:                  huecli turn-on hubaliashere lightidhere");
-            Console.WriteLine("Turn light off:                 huecli turn-off hubaliashere lightidhere");
-            Console.WriteLine("Set light brightness:           huecli set-brightness hubaliashere lightidhere 1-254");
+            Console.WriteLine("Turn light on:                  huecli turn-on hubalias lightid");
+            Console.WriteLine("Turn light off:                 huecli turn-off hubalias lightid");
+            Console.WriteLine("Set light brightness:           huecli set-brightness hubalias lightid 1-254");
+            Console.WriteLine("Set light temperature:          huecli set-temperature hubalias lightid 154-500");
         }
 
         public bool ShouldShowHelp()
@@ -98,6 +99,18 @@ namespace huecli
         }
 
         public bool SetBrightnessCheckEnoughArguments()
+        {
+            if (this.arguments.Length == 5)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool SetTemperatureCheckEnoughArguments()
         {
             if (this.arguments.Length == 5)
             {
