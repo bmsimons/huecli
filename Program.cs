@@ -32,7 +32,7 @@ namespace huecli
                     {
                         foreach (HueBridgeObject hueBridge in hueBridges)
                         {
-                            Console.WriteLine("Found hub at address "+hueBridge.internalipaddress);
+                            Console.WriteLine("Found hub at address " + hueBridge.internalipaddress);
                         }
                     }
                     else
@@ -44,7 +44,7 @@ namespace huecli
                 case "get-hubs":
                     foreach (var hub in settings.GetHubs())
                     {
-                        Console.WriteLine("Hub "+hub["alias"]+" at "+hub["localipaddress"]);
+                        Console.WriteLine("Hub " + hub["alias"] + " at " + hub["localipaddress"]);
                     }
                     break;
                 case "remove-hub":
@@ -128,6 +128,17 @@ namespace huecli
                     else
                     {
                         Console.WriteLine("Invalid syntax, use huecli set-temperature hubalias lightid 154-500");
+                    }
+                    break;
+                case "set-color":
+                    if (argParser.SetColorCheckEnoughArguments())
+                    {
+                        HueBridge hueBridge = new HueBridge(argParser.arguments[2], settings.GetIPAddress(argParser.arguments[2]), settings.GetUsername(argParser.arguments[2]));
+                        hueBridge.SetLightingColor(argParser.arguments[3], argParser.arguments[4], argParser.arguments[5]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid syntax, use huecli set-color hubalias lightid 0.0-1.0 0.0-1.0");
                     }
                     break;
                 default:
