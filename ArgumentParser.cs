@@ -122,6 +122,18 @@ namespace huecli
             }
         }
 
+        public bool SetColorCheckEnoughArguments()
+        {
+            if (this.arguments.Length == 6)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public ArgumentParser()
         {
             arguments = Environment.GetCommandLineArgs();
