@@ -10,8 +10,6 @@ Huecli is a work in progress project at the time of writing this article, and al
 
 Of course, more functionality will be added to the source code later on.
 
-![Alt text](https://assets.digitalocean.com/articles/alligator/boo.svg "a title")
-
 # Building huecli
 
 Huecli is made in C#, and requires the .NET Core framework to run it. Runtimes are available for macOS, Linux and Windows.
