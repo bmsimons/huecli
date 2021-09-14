@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueCLI.Logic", "HueCLI.Logi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueCLI.App", "HueCLI.App\HueCLI.App.csproj", "{C66F1221-7344-47D4-9602-15E26EA38DA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueCLI.Tests", "HueCLI.Tests\HueCLI.Tests.csproj", "{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{C66F1221-7344-47D4-9602-15E26EA38DA5}.Release|x64.Build.0 = Release|Any CPU
 		{C66F1221-7344-47D4-9602-15E26EA38DA5}.Release|x86.ActiveCfg = Release|Any CPU
 		{C66F1221-7344-47D4-9602-15E26EA38DA5}.Release|x86.Build.0 = Release|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Debug|x64.Build.0 = Debug|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Debug|x86.Build.0 = Debug|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Release|x64.ActiveCfg = Release|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Release|x64.Build.0 = Release|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Release|x86.ActiveCfg = Release|Any CPU
+		{35BEE575-F763-4F6A-AF42-C9EFEC7F431A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
