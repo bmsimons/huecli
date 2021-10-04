@@ -2,6 +2,14 @@ using System;
 
 namespace HueCLI.Logic
 {
+    public class BridgeLightHTTPStatusCodeException : Exception
+    {
+        public BridgeLightHTTPStatusCodeException()
+        : base()
+        {
+        }
+    }
+
     public class BridgeDiscoveryHTTPStatusCodeException : Exception
     {
         public BridgeDiscoveryHTTPStatusCodeException()
@@ -24,6 +32,14 @@ namespace HueCLI.Logic
         : base()
         {
         } 
+    }
+
+    public class BridgeLightUnknownException : Exception
+    {
+        public BridgeLightUnknownException()
+        : base()
+        {
+        }
     }
 
     public class BridgeLinkUnknownException : Exception
