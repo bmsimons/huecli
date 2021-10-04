@@ -11,34 +11,6 @@ namespace HueCLI.Logic
 {
     public class BridgeLink
     {
-        public async Task<bool> Unlink(string IPAddress, string Username)
-        {
-            var webClient = new HttpClient();
-
-            var response = await webClient.DeleteAsync("http://" + IPAddress + "/api/" + Username + "/config/whitelist/" + Username);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStreamAsync();
-
-                var errors = await JsonSerializer.DeserializeAsync<HueBridgeLinkError[]>(responseContent);
-                var error = errors.FirstOrDefault();
-
-                if (error == null || error.Data == null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                throw new BridgeLinkHTTPStatusCodeException();
-            }
-        }
-
         public async Task<string> Link(string IPAddress, string Alias)
         {
             var linkClient = new HttpClient();
