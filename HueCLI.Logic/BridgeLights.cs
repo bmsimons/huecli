@@ -39,5 +39,53 @@ namespace HueCLI.Logic
                 throw new BridgeLightHTTPStatusCodeException();
             }
         }
+
+        public async Task<bool> TurnOn(string IPAddress, int light) {
+            return await TurnOnOrOff(IPAddress, light, true);
+        }
+
+        public async Task<bool> TurnOff(string IPAddress, int light) {
+            return await TurnOnOrOff(IPAddress, light, false);
+        }
+
+        private async Task<bool> TurnOnOrOff(string IPAddress, int light, bool on) {
+            var configurationStore = new ConfigurationStore();
+
+            var configuration = configurationStore.GetConfiguration(IPAddress);
+
+            var webClient = new HttpClient();
+
+            var bodyContent = new StringContent("{\"on\": " + on.ToString().ToLower() + " }", Encoding.UTF8, "application/json");
+
+            var webResponse = await webClient.PutAsync("http://" + IPAddress + "/api/" + configuration.Username + "/lights/" + light + "/state", bodyContent);
+
+            if (webResponse.IsSuccessStatusCode)
+            {
+                var responseContent = await webResponse.Content.ReadAsStreamAsync();
+
+                try
+                {
+                    var errors = await JsonSerializer.DeserializeAsync<HueBridgeLinkError[]>(responseContent);
+                    var error = errors.FirstOrDefault();
+
+                    if (error == null || error.Data == null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (JsonException)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

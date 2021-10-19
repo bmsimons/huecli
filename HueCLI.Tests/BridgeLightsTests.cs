@@ -59,5 +59,19 @@ namespace HueCLI.Tests
             Assert.True(Settings.LightNames.All(a => lights.Values.Select(s => s.Name).Contains(a)));
             Assert.True(Settings.LightProductNames.All(a => lights.Values.Select(s => s.ProductName).Contains(a)));
         }
+
+        [Fact, TestPriority(4)]
+        public async Task TestTurnOffLight() {
+            var bridgeLights = new BridgeLights();
+
+            Assert.True(await bridgeLights.TurnOff(Settings.IPAddress, Settings.LightToTurnOffAndOn));
+        }
+
+        [Fact, TestPriority(5)]
+        public async Task TestTurnOnLight() {
+            var bridgeLights = new BridgeLights();
+
+            Assert.True(await bridgeLights.TurnOn(Settings.IPAddress, Settings.LightToTurnOffAndOn));
+        }
     }
 }
