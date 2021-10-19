@@ -11,7 +11,7 @@ namespace HueCLI.Logic
 {
     public class BridgeLights
     {
-        public async Task<Dictionary<string, HueBridgeLight>> GetLights(string IPAddress)
+        public async Task<Dictionary<int, HueBridgeLight>> GetLights(string IPAddress)
         {
             var configurationStore = new ConfigurationStore();
 
@@ -27,7 +27,7 @@ namespace HueCLI.Logic
 
                 try
                 {
-                    return await JsonSerializer.DeserializeAsync<Dictionary<string, HueBridgeLight>>(responseContent);
+                    return await JsonSerializer.DeserializeAsync<Dictionary<int, HueBridgeLight>>(responseContent);
                 }
                 catch (JsonException)
                 {
