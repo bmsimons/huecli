@@ -2,6 +2,38 @@ using System.Text.Json.Serialization;
 
 namespace HueCLI.Logic
 {
+    public class HueBridgeLightColorGamut
+    {
+        public readonly XYPoint Red;
+        public readonly XYPoint Green;
+        public readonly XYPoint Blue;
+
+        public HueBridgeLightColorGamut(XYPoint red, XYPoint green, XYPoint blue) {
+            Red = red;
+            Green = green;
+            Blue = blue;
+        }
+    }
+
+    public class HueBridgeLightCapabilitiesControl
+    {
+        [JsonPropertyName("colorgamuttype")]
+        public string ColorGamutType { get; set; }
+
+        [JsonPropertyName("colorgamut")]
+        [JsonConverter(typeof(GamutJsonConverter))]
+        public HueBridgeLightColorGamut ColorGamut { get; set; }
+    }
+
+    public class HueBridgeLightCapabilities
+    {
+        [JsonPropertyName("certified")]
+        public bool Certified { get; set; }
+
+        [JsonPropertyName("control")]
+        public HueBridgeLightCapabilitiesControl Control { get; set; }
+    }
+
     public class HueBridgeLightState
     {
         [JsonPropertyName("on")]
@@ -36,5 +68,8 @@ namespace HueCLI.Logic
 
         [JsonPropertyName("state")]
         public HueBridgeLightState State { get; set; }
+        
+        [JsonPropertyName("capabilities")]
+        public HueBridgeLightCapabilities Capabilities { get; set; }
     }
 }
