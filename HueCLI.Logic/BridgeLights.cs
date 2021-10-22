@@ -11,15 +11,21 @@ namespace HueCLI.Logic
 {
     public class BridgeLights
     {
-        public async Task<Dictionary<int, HueBridgeLight>> GetLights(string IPAddress)
+        private string _ipAddress { get; set; }
+
+        public BridgeLights(string IPAddress) {
+            _ipAddress = IPAddress;
+        }
+
+        public async Task<Dictionary<int, HueBridgeLight>> GetLights()
         {
             var configurationStore = new ConfigurationStore();
 
-            var configuration = configurationStore.GetConfiguration(IPAddress);
+            var configuration = configurationStore.GetConfiguration(_ipAddress);
 
             var webClient = new HttpClient();
 
-            var webResponse = await webClient.GetAsync("http://" + IPAddress + "/api/" + configuration.Username + "/lights");
+            var webResponse = await webClient.GetAsync("http://" + _ipAddress + "/api/" + configuration.Username + "/lights");
 
             if (webResponse.IsSuccessStatusCode)
             {
@@ -40,24 +46,24 @@ namespace HueCLI.Logic
             }
         }
 
-        public async Task<bool> TurnOn(string IPAddress, int light) {
-            return await TurnOnOrOff(IPAddress, light, true);
+        public async Task<bool> TurnOn(int light) {
+            return await TurnOnOrOff(light, true);
         }
 
-        public async Task<bool> TurnOff(string IPAddress, int light) {
-            return await TurnOnOrOff(IPAddress, light, false);
+        public async Task<bool> TurnOff(int light) {
+            return await TurnOnOrOff(light, false);
         }
 
-        private async Task<bool> TurnOnOrOff(string IPAddress, int light, bool on) {
+        private async Task<bool> TurnOnOrOff(int light, bool on) {
             var configurationStore = new ConfigurationStore();
 
-            var configuration = configurationStore.GetConfiguration(IPAddress);
+            var configuration = configurationStore.GetConfiguration(_ipAddress);
 
             var webClient = new HttpClient();
 
             var bodyContent = new StringContent("{\"on\": " + on.ToString().ToLower() + " }", Encoding.UTF8, "application/json");
 
-            var webResponse = await webClient.PutAsync("http://" + IPAddress + "/api/" + configuration.Username + "/lights/" + light + "/state", bodyContent);
+            var webResponse = await webClient.PutAsync("http://" + _ipAddress + "/api/" + configuration.Username + "/lights/" + light + "/state", bodyContent);
 
             if (webResponse.IsSuccessStatusCode)
             {

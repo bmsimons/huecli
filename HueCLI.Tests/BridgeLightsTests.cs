@@ -52,9 +52,9 @@ namespace HueCLI.Tests
 
         [Fact, TestPriority(3)]
         public async Task TestLightsGet() {
-            var bridgeLights = new BridgeLights();
+            var bridgeLights = new BridgeLights(Settings.IPAddress);
 
-            var lights = await bridgeLights.GetLights(Settings.IPAddress);
+            var lights = await bridgeLights.GetLights();
             
             Assert.True(Settings.LightNames.All(a => lights.Values.Select(s => s.Name).Contains(a)));
             Assert.True(Settings.LightProductNames.All(a => lights.Values.Select(s => s.ProductName).Contains(a)));
@@ -62,16 +62,16 @@ namespace HueCLI.Tests
 
         [Fact, TestPriority(4)]
         public async Task TestTurnOffLight() {
-            var bridgeLights = new BridgeLights();
+            var bridgeLights = new BridgeLights(Settings.IPAddress);
 
-            Assert.True(await bridgeLights.TurnOff(Settings.IPAddress, Settings.LightToTurnOffAndOn));
+            Assert.True(await bridgeLights.TurnOff(Settings.LightToTurnOffAndOn));
         }
 
         [Fact, TestPriority(5)]
         public async Task TestTurnOnLight() {
-            var bridgeLights = new BridgeLights();
+            var bridgeLights = new BridgeLights(Settings.IPAddress);
 
-            Assert.True(await bridgeLights.TurnOn(Settings.IPAddress, Settings.LightToTurnOffAndOn));
+            Assert.True(await bridgeLights.TurnOn(Settings.LightToTurnOffAndOn));
         }
     }
 }
