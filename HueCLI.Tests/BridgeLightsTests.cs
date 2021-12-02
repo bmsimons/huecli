@@ -73,5 +73,19 @@ namespace HueCLI.Tests
 
             Assert.True(await bridgeLights.TurnOn(Settings.LightToTurnOffAndOn));
         }
+
+        [Fact, TestPriority(6)]
+        public async Task SetColorTemperature() {
+            var bridgeLights = new BridgeLights(Settings.IPAddress);
+
+            Assert.True(await bridgeLights.SetColorTemperature(Settings.LightToTurnOffAndOn, 500));
+        }
+
+        [Fact, TestPriority(7)]
+        public async Task SetBrightness() {
+            var bridgeLights = new BridgeLights(Settings.IPAddress);
+
+            Assert.True(await bridgeLights.SetBrightness(Settings.LightToTurnOffAndOn, 254));
+        }
     }
 }
