@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HueCLI.Logic.Models;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text;
 using System.Linq;
 
@@ -69,33 +68,7 @@ namespace HueCLI.Logic
 
             var webResponse = await webClient.PutAsync("http://" + _ipAddress + "/api/" + configuration.Username + "/lights/" + light + "/state", bodyContent);
 
-            if (webResponse.IsSuccessStatusCode)
-            {
-                var responseContent = await webResponse.Content.ReadAsStreamAsync();
-
-                try
-                {
-                    var errors = await JsonSerializer.DeserializeAsync<HueBridgeLinkError[]>(responseContent);
-                    var error = errors.FirstOrDefault();
-
-                    if (error == null || error.Data == null)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                catch (JsonException)
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            return await GetErrors(webResponse);
         }
 
         public async Task<bool> SetColorTemperature(int light, int temperature) {
@@ -113,33 +86,7 @@ namespace HueCLI.Logic
 
             var webResponse = await webClient.PutAsync("http://" + _ipAddress + "/api/" + configuration.Username + "/lights/" + light + "/state", bodyContent);
 
-            if (webResponse.IsSuccessStatusCode)
-            {
-                var responseContent = await webResponse.Content.ReadAsStreamAsync();
-
-                try
-                {
-                    var errors = await JsonSerializer.DeserializeAsync<HueBridgeLinkError[]>(responseContent);
-                    var error = errors.FirstOrDefault();
-
-                    if (error == null || error.Data == null)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                catch (JsonException)
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            return await GetErrors(webResponse);
         }
 
         private async Task<bool> TurnOnOrOff(int light, bool on) {
@@ -153,6 +100,10 @@ namespace HueCLI.Logic
 
             var webResponse = await webClient.PutAsync("http://" + _ipAddress + "/api/" + configuration.Username + "/lights/" + light + "/state", bodyContent);
 
+            return await GetErrors(webResponse);
+        }
+
+        private async Task<bool> GetErrors(HttpResponseMessage webResponse) {
             if (webResponse.IsSuccessStatusCode)
             {
                 var responseContent = await webResponse.Content.ReadAsStreamAsync();
